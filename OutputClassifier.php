@@ -3,6 +3,7 @@
 class OutputClassifier {
 	private $classifiers = array(
 		'/-bash: (\w+): command not found/',
+		'/zsh: command not found: (\w+)/',
 	);
 
 
