@@ -1,11 +1,19 @@
+#!/usr/bin/php
 <?php
 
-include_once('ConsoleColor.php');
+require_once dirname(__FILE__) . '/ConsoleColor.php';
+require_once dirname(__FILE__) . '/OutputClassifier.php';
 class Output {
   public $suppressNewlines = FALSE;
 
+  protected $classifier;
+
+  public function __construct() {
+    $this->classifier = new OutputClassifier();
+  }
+
   public function stdout($arg) {
-    $this->say($this->colorize($arg));
+    $this->say($this->filter($arg));
   }
 
   public function stderr($arg) {
@@ -13,19 +21,28 @@ class Output {
     $this->say($filter->wrap($arg));
   }
 
-  protected function colorize($string) {
+  protected function filter($string) {
     $string = trim($string);
-    if (preg_match('/^([ADGMU?])       /', $string, $m)) {
-      $svn_colors = array('A' => 'green', 'D' => 'red', 'G' => 'green', 'M' => 'yellow', 'U' => 'green', '?' => 'blue');
-      $filter = new ConsoleColor($svn_colors[$m[1]]);
-      return $filter->wrap($string);
-    } 
+    $recognized = $this->classifier->parse($string);
+    return $this->format($recognized ?: $string);
+  }
+
+  private function say($string) {
+    print $string . ($this->suppressNewlines ? '' : "\n");
+  }
+ 
+  private function format($string) {
+    $colorizer = new ConsoleColor();
+
+    $token = '/%%\{([\w,]+):(.+?)\}%%/';
+    if (preg_match($token, $string, $m)) {
+      list($match, $filter, $text) = $m;
+      $colorizer->set($filter);
+      return $this->format(str_replace($match, $colorizer->wrap($text), $string));
+    }
     return $string;
   }
 
-  protected function say($string) {
-    print $string . ($this->suppressNewlines ? '' : "\n");
-  }
 
 }
 

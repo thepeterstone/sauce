@@ -45,4 +45,14 @@ class OutputTest extends PHPUnit_Framework_TestCase {
     $this->output->stdout("M       sites");
     $this->assertRegExp('/^\[\d;3\d;4\dm/', ob_get_clean());
   }
+
+  public function testSubversionUpdatesAreColored() {
+    $this->output->stdout("U    sites/all/themes/popcap_2012/template.php");
+    $this->assertRegExp('/^\[\d;3\d;4\dm/', ob_get_clean());
+  }
+
+  public function testSubversionUpdateSummaryIsColored() {
+    $this->output->stdout("Updated to revision 7.");
+    $this->assertRegExp('/\[\d;3\d;4\dm/', ob_get_clean());
+  }
 }

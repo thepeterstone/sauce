@@ -12,15 +12,15 @@ class OutputClassifierTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testBashCommandNotFoundIsRecognized() {
-		$this->assertTrue($this->classifier->check("-bash: fark: command not found"));
+		$this->assertEquals('Bash', $this->classifier->classify("-bash: fark: command not found"));
 	}
 
 	public function testNonsenseIsNotRecognized() {
-		$this->assertFalse($this->classifier->check("wfai aiunoav ahf a fek k"));
+		$this->assertFalse($this->classifier->classify("wfai aiunoav ahf a fek k"));
 	}
 
 	public function testZshCommandNotFoundIsRecognized( )
 	{
-		$this->assertTrue($this->classifier->check("zsh: command not found: asdf"));
+		$this->assertEquals('Zsh', $this->classifier->classify("zsh: command not found: asdf"));
 	}
 }
