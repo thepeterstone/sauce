@@ -7,11 +7,15 @@ class OutputClassifier {
 	private $match;
 
 	public function __construct() {
-		$this->classifiers = array(
-			new BashMatcher(),
-			new SvnMatcher(),
-			new ZshMatcher(),
-		);	
+		$files = scandir(dirname(__FILE__));
+		foreach ($files as $file) {
+			if (preg_match('/^(\w+Matcher).php$/', $file, $match)) {
+				if ($file === 'OutputMatcher.php') {
+					continue;
+				}
+				$this->classifiers[] = new $match[1]();
+			}
+		}
 	}
 
 	public function parse($string) {
