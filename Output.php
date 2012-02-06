@@ -1,8 +1,7 @@
 #!/usr/bin/php
 <?php
 
-require_once dirname(__FILE__) . '/ConsoleColor.php';
-require_once dirname(__FILE__) . '/OutputClassifier.php';
+require_once dirname(__FILE__) . '/Autoload.php';
 class Output {
   public $suppressNewlines = FALSE;
 
@@ -18,7 +17,7 @@ class Output {
 
   public function stderr($arg) {
     $filter = new ConsoleColor('red', NULL, 'bold');
-    $this->say($filter->wrap($arg));
+    $this->say($filter->wrap($this->filter($arg)));
   }
 
   protected function filter($string) {

@@ -1,7 +1,7 @@
 <?php
 
+require_once dirname(dirname(__FILE__)) . '/Autoload.php';
 require_once 'PHPUnit/Autoload.php';
-require_once dirname(dirname(__FILE__)) . '/Output.php';
 class OutputTest extends PHPUnit_Framework_TestCase {
   private $output;
 

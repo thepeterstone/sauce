@@ -1,6 +1,6 @@
 <?php
 
-require_once 'OutputClassifier.php';
+require_once dirname(dirname(__FILE__)) . '/Autoload.php';
 require_once 'PHPUnit/Autoload.php';
 
 class OutputClassifierTest extends PHPUnit_Framework_TestCase {
