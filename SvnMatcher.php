@@ -32,9 +32,4 @@ class SvnMatcher extends OutputMatcher {
 		return $this->arg_filter($string, $filter, $string);
 	}
 
-	private function arg_filter($search, $filter, $subject) {
-		$r = str_replace($search, '%%{' . $filter . ':' . $search . '}%%', $subject);
-		return $r;
-	}
-
 }

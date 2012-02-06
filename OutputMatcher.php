@@ -28,4 +28,10 @@ abstract class OutputMatcher {
 	public function getType() {
 		return str_replace('Matcher', '', get_class($this));
 	}
+
+	protected function arg_filter($search, $filter, $subject) {
+		$r = str_replace($search, '%%{' . $filter . ':' . $search . '}%%', $subject);
+		return $r;
+	}
+
 }
