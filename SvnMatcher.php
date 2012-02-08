@@ -14,7 +14,7 @@ class SvnMatcher extends OutputMatcher {
 	);
 
 	protected function _update($string, $args) {
-		return $this->arg_filter($args['revision id'], 'yellow', $string);
+		return $this->arg_filter($args['revision id'], 'yellow,,bold', $string);
 	}
 
 	protected function _status($string, $args) {
@@ -24,7 +24,7 @@ class SvnMatcher extends OutputMatcher {
 			'D' => 'red',
 			'G' => 'green',
 			'M' => 'yellow',
-			'U' => 'green',
+			'U' => 'yellow',
 			'?' => 'blue',
 		);
 
