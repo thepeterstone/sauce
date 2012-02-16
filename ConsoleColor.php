@@ -18,7 +18,6 @@ class ConsoleColor {
         if (isset($n[1])) $this->fg = self::cid($n[1]);
         if (isset($n[3])) $this->attr = self::aid($n[3]);
       }
-      
     }
   }
 
@@ -29,7 +28,7 @@ class ConsoleColor {
   }
 
   public function __toString() {
-    return sprintf("[%d;3%d;4%dm", $this->attr, $this->fg, $this->bg);
+    return sprintf("%c[%d;3%d;4%dm", 033, $this->attr, $this->fg, $this->bg);
   }
 
 
@@ -45,18 +44,18 @@ class ConsoleColor {
       'white' => 7,
       'reset' => 9,
       );
-      return array_key_exists($name, $colors) ? $colors[$name] : 9;
-    }
+    return array_key_exists($name, $colors) ? $colors[$name] : 9;
+  }
 
-    private static function aid($name) {
-      $attr = array(
-        'bold' => 1,
-        'dim' => 2,
-        'uline' => 3,
-        'blink' => 5,
-        'rev' => 7,
-        'reset' => 9,
-        );
-        return array_key_exists($name, $attr) ? $attr[$name] : 9;
-      }
-    }
+  private static function aid($name) {
+    $attr = array(
+      'bold' => 1,
+      'dim' => 2,
+      'uline' => 3,
+      'blink' => 5,
+      'rev' => 7,
+      'reset' => 9,
+      );
+    return array_key_exists($name, $attr) ? $attr[$name] : 9;
+  }
+}
