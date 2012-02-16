@@ -21,7 +21,7 @@ class ConsoleColorTest extends PHPUnit_Framework_TestCase {
   }
 
   public function testEvalAsStringRendersColorCode() {
-    $this->assertRegExp('/\[\d;3\d;4\dm/', $this->fixture->__toString());
+    $this->assertRegExp('/\e\[\d;3\d;4\dm/', $this->fixture->__toString());
   }
 
   public function testUnknownColorReturnsReset() {
