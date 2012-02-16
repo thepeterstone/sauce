@@ -1,0 +1,10 @@
+#!/usr/bin/php
+<?php
+
+require_once 'Output.php';
+
+$out = new Output();
+$fd = fopen("php://stdin", "r");
+while ($line = fgets($fd)) {
+  $out->stdout($line);
+}

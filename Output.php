@@ -1,4 +1,3 @@
-#!/usr/bin/php
 <?php
 
 require_once dirname(__FILE__) . '/Autoload.php';
@@ -43,13 +42,4 @@ class Output {
   }
 
 
-}
-
-// If run directly, colorize STDIN
-if (fileinode(__FILE__)===getmyinode()) {
-  $out = new Output();
-  $fd = fopen("php://stdin", "r");
-  while ($line = fgets($fd)) {
-    $out->stdout($line);
-  }
 }
