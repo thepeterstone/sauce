@@ -51,6 +51,11 @@ class OutputTest extends PHPUnit_Framework_TestCase {
     $this->assertRegExp('/^\e\[\d;3\d;4\dm/', ob_get_clean());
   }
 
+  public function testSubversionUpdatesWithPlusesAreColored() {
+    $this->output->stdout("M  + some/file/i/copied.php");
+    $this->assertRegExp('/^\e\[\d;3\d;4\dm/', ob_get_clean());
+  }
+
   public function testSubversionUpdateSummaryIsColored() {
     $this->output->stdout("Updated to revision 7.");
     $this->assertRegExp('/\e\[\d;3\d;4\dm/', ob_get_clean());

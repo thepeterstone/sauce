@@ -3,7 +3,7 @@
 require_once dirname(__FILE__) . '/Autoload.php';
 class SvnMatcher extends OutputMatcher {
 	protected $classifiers = array(
-		'([ACDGMU?])\s+([\w\/\._-]+)' => array(
+		'([ACDGMU?])[\s+]+([\w\/\._-]+)' => array(
 			'filter' => '_status',
 			'vars' => array( 'change', 'path' ),
 		),
