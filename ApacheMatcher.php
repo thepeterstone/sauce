@@ -7,7 +7,7 @@ class ApacheMatcher extends OutputMatcher {
 			'filter' => '_combined',
 			'vars' => array( 'remote ip', 'date', 'request', 'status code', 'size', 'referrer', 'user agent' ),
 		),
-		'\[([^\]]+)\] [(\w+)] [client (\d+\.\d+\.\d+\.\d+)] (.*)' => array(
+		'\[([^\]]+)\] \[(\w+)\] (?:\[client (\d+\.\d+\.\d+\.\d+)\] |(?:))(.*)' => array(
 			'filter' => '_error',
 			'vars' => array( 'date', 'severity', 'remote ip', 'error string'),
 		),
@@ -15,8 +15,9 @@ class ApacheMatcher extends OutputMatcher {
 	);
 
 	protected function _error($string, $args) {
-		$string = $this->arg_filter($args['severity'], $this->_errorTypeColor($args['severity']), $string);
-		return $this->arg_filter($args['error string'], 'red', $string);
+		$string = $this->arg_filter($args['severity'], 'blue,,bold', $string);
+		$string = $this->arg_filter($args['remote ip'], 'cyan', $string);
+		return $this->arg_filter($args['error string'], $this->_errorTypeColor($args['severity']), $string);
 	}
 
 	private function _errorTypeColor($code) {
@@ -26,9 +27,9 @@ class ApacheMatcher extends OutputMatcher {
 			case 'warning':
 				return 'yellow,,bold';
 			case 'notice':
-				return 'yellow';
-			default:
 				return 'blue';
+			default:
+				return 'magenta';
 		}
 	}
 
