@@ -21,6 +21,10 @@ abstract class OutputMatcher {
 		return '%%{red,,bold:' . $string . '}%%';
 	}
 
+	protected function _separator($string, $args) {
+		return '%%{blue:' . $string . '}%%';
+	}
+
 	public function getType() {
 		return str_replace('Matcher', '', get_class($this));
 	}
