@@ -15,9 +15,10 @@ class ApacheMatcher extends OutputMatcher {
 	);
 
 	protected function _error($string, $args) {
+		$string = $this->arg_filter($args['error string'], $this->_errorTypeColor($args['severity']), $string);
 		$string = $this->arg_filter($args['severity'], 'blue,,bold', $string);
 		$string = $this->arg_filter($args['remote ip'], 'cyan', $string);
-		return $this->arg_filter($args['error string'], $this->_errorTypeColor($args['severity']), $string);
+		return $string;
 	}
 
 	private function _errorTypeColor($code) {
