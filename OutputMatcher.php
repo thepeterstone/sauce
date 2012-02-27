@@ -30,7 +30,9 @@ abstract class OutputMatcher {
 	}
 
 	protected function arg_filter($search, $filter, $subject) {
-		$r = str_replace($search, '%%{' . $filter . ':' . $search . '}%%', $subject);
+		if (empty($search)) { return $subject; }
+		$position = strpos($subject, $search);
+		$r = substr_replace($subject, '%%{' . $filter . ':' . $search . '}%%', $position, strlen($search));
 		return $r;
 	}
 
