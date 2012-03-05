@@ -34,7 +34,7 @@ abstract class OutputMatcher {
 	}
 
 	protected function arg_filter($search, $filter, $subject) {
-		if (empty($search)) { return $subject; }
+		if (is_null($search) || $search === '') { return $subject; }
 		$position = strpos($subject, $search);
 		$r = substr_replace($subject, '%%{' . $filter . ':' . $search . '}%%', $position, strlen($search));
 		return $r;
