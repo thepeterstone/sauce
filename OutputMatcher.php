@@ -25,6 +25,10 @@ abstract class OutputMatcher {
 		return '%%{blue:' . $string . '}%%';
 	}
 
+	protected function _snip($string, $args) {
+		return "<snip>";
+	}
+
 	public function getType() {
 		return str_replace('Matcher', '', get_class($this));
 	}
