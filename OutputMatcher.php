@@ -21,12 +21,22 @@ abstract class OutputMatcher {
 		return '%%{red,,bold:' . $string . '}%%';
 	}
 
+	protected function _separator($string, $args) {
+		return '%%{blue:' . $string . '}%%';
+	}
+
+	protected function _snip($string, $args) {
+		return "<snip>";
+	}
+
 	public function getType() {
 		return str_replace('Matcher', '', get_class($this));
 	}
 
 	protected function arg_filter($search, $filter, $subject) {
-		$r = str_replace($search, '%%{' . $filter . ':' . $search . '}%%', $subject);
+		if (is_null($search) || $search === '') { return $subject; }
+		$position = strpos($subject, $search);
+		$r = substr_replace($subject, '%%{' . $filter . ':' . $search . '}%%', $position, strlen($search));
 		return $r;
 	}
 

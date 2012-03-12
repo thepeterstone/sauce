@@ -42,16 +42,6 @@ class OutputTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals("test\n", ob_get_clean());
   }
 
-  public function testSubversionModificationsAreColored() {
-    $this->output->stdout("M       sites");
-    $this->assertRegExp('/^\e\[\d;3\d;4\dm/', ob_get_clean());
-  }
-
-  public function testSubversionUpdatesAreColored() {
-    $this->output->stdout("U    sites/all/themes/popcap_2012/template.php");
-    $this->assertRegExp('/^\e\[\d;3\d;4\dm/', ob_get_clean());
-  }
-
   public function testSubversionUpdatesWithPlusesAreColored() {
     $this->output->stdout("M  + some/file/i/copied.php");
     $this->assertRegExp('/^\e\[\d;3\d;4\dm/', ob_get_clean());

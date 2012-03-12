@@ -22,7 +22,7 @@ class Output {
   protected function filter($string) {
     $string = trim($string);
     $recognized = $this->classifier->parse($string);
-    return $this->format($recognized ?: $string);
+    return $this->format($recognized ? $recognized : $string);
   }
 
   private function say($string) {

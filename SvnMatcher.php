@@ -11,6 +11,14 @@ class SvnMatcher extends OutputMatcher {
 			'filter' => '_update',
 			'vars' => array('updated_or_at', 'revision id'),
 		),
+		'r(\d+) \| (\w+) \| ([^|]+) \| (\d+ lines?)' => array(
+			'filter' => '_log',
+			'vars' => array( 'revision id', 'user name', 'date', 'length'),
+		),
+		'------------------------------------------------------------------------' => array(
+			'filter' => '_separator',
+			'vars' => array(),
+		),
 	);
 
 	protected function _update($string, $args) {
@@ -30,6 +38,11 @@ class SvnMatcher extends OutputMatcher {
 
 		$filter = $colors[$args['change']];
 		return $this->arg_filter($string, $filter, $string);
+	}
+
+	protected function _log($string, $args) {
+		$string = $this->arg_filter($args['user name'], 'blue,,bold', $string);
+		return $this->_update($string, $args);
 	}
 
 }
