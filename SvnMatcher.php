@@ -11,7 +11,7 @@ class SvnMatcher extends OutputMatcher {
 			'filter' => '_update',
 			'vars' => array('updated_or_at', 'revision id'),
 		),
-		'r(\d+) \| (\w+) \| ([^|]+) \| (\d+ lines?)' => array(
+		'r(\d+) \| ([.\w]+) \| ([^|]+) \| (\d+ lines?)' => array(
 			'filter' => '_log',
 			'vars' => array( 'revision id', 'user name', 'date', 'length'),
 		),
