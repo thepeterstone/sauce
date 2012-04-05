@@ -31,7 +31,7 @@ class Output {
   private function say($string) {
     print $string . ($this->suppressNewlines ? '' : "\n");
   }
- 
+
   private function format($string) {
     $colorizer = new ConsoleColor();
 
