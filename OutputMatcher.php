@@ -26,7 +26,7 @@ abstract class OutputMatcher {
 	}
 
 	protected function _snip($string, $args) {
-		return "<snip>";
+		return "";
 	}
 
 	public function getType() {
