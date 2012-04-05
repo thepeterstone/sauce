@@ -29,6 +29,9 @@ class Output {
   }
 
   private function say($string) {
+    if (empty($string)) {
+      return;
+    }
     print $string . ($this->suppressNewlines ? '' : "\n");
   }
 
