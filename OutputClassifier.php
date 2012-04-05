@@ -22,16 +22,17 @@ class OutputClassifier {
 		if ($this->classify($string)) {
 			return $this->match;
 		}
+    return FALSE;
 	}
 
 	public function classify($string) {
 		foreach ($this->classifiers as $classifier) {
 			$this->match = $classifier->check($string);
-			if ($this->match) {
+			if ($this->match !== FALSE) {
 				return $classifier->getType();
 			}
 		}
-		return false;
+		return FALSE;
 	}
 
 
