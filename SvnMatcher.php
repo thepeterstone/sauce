@@ -3,7 +3,7 @@
 require_once dirname(__FILE__) . '/Autoload.php';
 class SvnMatcher extends OutputMatcher {
 	protected $classifiers = array(
-		'([ACDGMU?])[\s+]+([\w\/\._-]+)' => array(
+		'([ACDGMU?])[\s+]+([\w\/\.()_-]+)' => array(
 			'filter' => '_status',
 			'vars' => array( 'change', 'path' ),
 		),
@@ -11,7 +11,7 @@ class SvnMatcher extends OutputMatcher {
 			'filter' => '_update',
 			'vars' => array('updated_or_at', 'revision id'),
 		),
-		'r(\d+) \| (\w+) \| ([^|]+) \| (\d+ lines?)' => array(
+		'r(\d+) \| ([.\w]+) \| ([^|]+) \| (\d+ lines?)' => array(
 			'filter' => '_log',
 			'vars' => array( 'revision id', 'user name', 'date', 'length'),
 		),

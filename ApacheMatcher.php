@@ -2,17 +2,31 @@
 
 require_once dirname(__FILE__) . '/Autoload.php';
 class ApacheMatcher extends OutputMatcher {
-	protected $classifiers = array(
-		'(\d+\.\d+\.\d+\.\d+) - - \[([^\]]+)\] "([^"]+)" (\d+) (-|\d+) "([^"]+)" "([^"]*)"' => array(
-			'filter' => '_combined',
-			'vars' => array( 'remote ip', 'date', 'request', 'status code', 'size', 'referrer', 'user agent' ),
-		),
-		'\[([^\]]+)\] \[(\w+)\] (?:\[client (\d+\.\d+\.\d+\.\d+)\] |(?:))(.*)' => array(
-			'filter' => '_error',
-			'vars' => array( 'date', 'severity', 'remote ip', 'error string'),
-		),
-	
-	);
+	private $date = "\[([^\]]+)\]";
+	private $ip = "(\d+\.\d+\.\d+\.\d+)";
+	private $client = "(?:\[client (\d+\.\d+\.\d+\.\d+)\] |(?:))";
+	private $severity = "\[(\w+)\]";
+	protected $classifiers = array();
+
+	public function __construct() {
+		$this->classifiers = array(
+			// access logs
+			"$this->ip - - $this->date" . ' "([^"]+)" (\d+) (-|\d+) "([^"]+)" "([^"]*)"' => array(
+				'filter' => '_combined',
+				'vars' => array( 'remote ip', 'date', 'request', 'status code', 'size', 'referrer', 'user agent' ),
+			),
+
+			// error logs
+			"$this->date $this->severity $this->client" . "File does not exist: (.*)\/favicon.ico" => array(
+				'filter' => '_snip',
+				'vars' => array(),
+			),
+			"$this->date $this->severity $this->client" . "(.*)" => array(
+				'filter' => '_error',
+				'vars' => array( 'date', 'severity', 'remote ip', 'error string'),
+			),
+		);
+	}
 
 	protected function _error($string, $args) {
 		$string = $this->arg_filter($args['error string'], $this->_errorTypeColor($args['severity']), $string);
