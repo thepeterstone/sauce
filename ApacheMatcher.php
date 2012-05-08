@@ -3,7 +3,7 @@
 require_once dirname(__FILE__) . '/Autoload.php';
 class ApacheMatcher extends OutputMatcher {
 	private $date = "\[([^\]]+)\]";
-	private $ip = "(\d+\.\d+\.\d+\.\d+)";
+	private $ip = "((?:\d+\.\d+\.\d+\.\d+)|(?:[A-Fa-f0-9:]+))";
 	private $client = "(?:\[client (\d+\.\d+\.\d+\.\d+)\] |(?:))";
 	private $severity = "\[(\w+)\]";
 	protected $classifiers = array();
