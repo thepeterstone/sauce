@@ -49,6 +49,10 @@ class ApacheMatcher extends OutputMatcher {
 	}
 
 	protected function _combined($string, $args) {
+		// Skip cache hits
+		if ($args['status code'] == '304') {
+			return $this->_snip($string, $args);
+		}
 		$string = $this->arg_filter($args['status code'], $this->_statusCodeColor($args['status code']), $string);
 		$string = $this->arg_filter($args['request'], 'blue', $string);
 		return $string;
