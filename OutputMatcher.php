@@ -11,7 +11,8 @@ abstract class OutputMatcher {
 				foreach($match['vars'] as $idx => $val) {
 					$args[$val] = $m[$idx + 1];
 				}
-				return call_user_method($match['filter'], $this, $string, $args);
+				$method = $match['filter'];
+				return $this->$method($string, $args);
 			}
 		}
 		return false;
