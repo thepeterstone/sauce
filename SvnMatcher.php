@@ -19,6 +19,10 @@ class SvnMatcher extends OutputMatcher {
 			'filter' => '_separator',
 			'vars' => array(),
 		),
+    '===================================================================' => array(
+			'filter' => '_separator',
+			'vars' => array(),
+		),
 	);
 
 	protected function _update($string, $args) {
@@ -27,12 +31,12 @@ class SvnMatcher extends OutputMatcher {
 
 	protected function _status($string, $args) {
 		$colors = array(
-			'A' => 'green,,bold',
+			'A' => 'yellow,,bold',
 			'C' => 'red,,bold',
 			'D' => 'red',
 			'G' => 'green',
-			'M' => 'yellow',
-			'U' => 'yellow',
+			'M' => 'green,,bold',
+			'U' => 'green',
 			'?' => 'blue',
 		);
 
