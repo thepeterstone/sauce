@@ -7,6 +7,10 @@ class SvnMatcher extends OutputMatcher {
 			'filter' => '_status',
 			'vars' => array( 'change', 'path' ),
 		),
+		'X[\s+]+([\w\/\.()_-]+)' => array(
+			'filter' => '_external',
+			'vars' => array( 'path' ),
+		),
 		'(Updated to|At) revision (\d+).' => array(
 			'filter' => '_update',
 			'vars' => array('updated_or_at', 'revision id'),
@@ -42,6 +46,10 @@ class SvnMatcher extends OutputMatcher {
 
 		$filter = $colors[$args['change']];
 		return $this->arg_filter($string, $filter, $string);
+	}
+
+	protected function _external($string, $args) {
+		return $this->arg_filter($string, 'cyan,,dim', $string);
 	}
 
 	protected function _log($string, $args) {
