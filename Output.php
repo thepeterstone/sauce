@@ -20,7 +20,7 @@ class Output {
   }
 
   protected function filter($string) {
-    $string = trim($string);
+    $string = trim($string, "\r\n");
     $recognized = $this->classifier->parse($string);
     if ($recognized !== FALSE) {
       $string = $recognized;
