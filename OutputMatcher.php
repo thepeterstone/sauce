@@ -6,7 +6,7 @@ abstract class OutputMatcher {
 
 	public function check($string) {
 		foreach ($this->classifiers as $test => $match) {
-			if (preg_match("/^$test$/", $string, $m)) {
+			if (preg_match("/^$test\$/", $string, $m)) {
 				$args = array();
 				foreach($match['vars'] as $idx => $val) {
 					$args[$val] = $m[$idx + 1];
